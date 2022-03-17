@@ -10,7 +10,7 @@ export const ValidandoToken = () => {
       return req.json();
     })
     .then((data) => {
-      if (data) {
+      if (data === true) {
         const urlParams = new URLSearchParams(window.location.search);
         //
         const tokenUrl = urlParams.get("token");
@@ -19,22 +19,13 @@ export const ValidandoToken = () => {
         const getStorage = localStorage.getItem("token");
         const tokenNoStorage = localStorage.setItem("token", tokenUrl);
 
-        setTimeout(() => {
-          if (getStorage === null || getStorage === undefined) {
-            console.log("Não cadastrado");
-            history.push("/Login");
-          } else {
-            console.log("aooba");
+        console.log(getStorage);
 
-            if (params === "/") {
-              return "/";
-            } else if (params === "/cadastro") {
-              return "/cadastro";
-            } else {
-              return params === "/Login";
-            }
-          }
-        }, 3000);
+        if (getStorage == null) {
+          console.log("não tem token");
+        } else {
+          console.log("tem token");
+        }
       }
     });
   return <></>;

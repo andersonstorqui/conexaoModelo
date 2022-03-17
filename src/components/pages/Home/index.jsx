@@ -10,8 +10,8 @@ export const Home = ({ pesquisa, setPesquisa, mostrarItensFiltrados, filter, pag
 
     return (
         <>
+            <ValidandoToken />
             <Div>
-                <ValidandoToken />
                 <section>
                     <h1>Informações de acessos aos clientes</h1>
                     <NavPesquisa

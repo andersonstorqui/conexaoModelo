@@ -5,8 +5,8 @@ export const Cadastro = ({ paginaCadastro, voltarTelaInicial }) => {
 
 
 
-    const getLocalStorage = localStorage.getItem('token')
-    console.log(getLocalStorage)
+    // const getLocalStorage = localStorage.getItem('token')
+    // console.log(getLocalStorage)
 
     return (
         <>
