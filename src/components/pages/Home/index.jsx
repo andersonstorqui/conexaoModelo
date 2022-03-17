@@ -1,17 +1,17 @@
 import { NavPesquisa } from "../NavPesquisa"
 import { ItensPesquisados } from "../ItensPesquisados"
 import { Div } from "./style"
-import { useParams } from "react-router-dom"
-import axios from "axios"
-
-export const Home = ({ pesquisa, setPesquisa, mostrarItensFiltrados, filter, paginaCadastro }) => {
+import { ValidandoToken } from "../../../Services/ValidandoToken"
+export const Home = ({ pesquisa, setPesquisa, mostrarItensFiltrados, filter, paginaCadastro, ValidandoToken }) => {
 
     const getLocalStorage = localStorage.getItem('token')
+
 
 
     return (
         <>
             <Div>
+                <ValidandoToken />
                 <section>
                     <h1>Informações de acessos aos clientes</h1>
                     <NavPesquisa

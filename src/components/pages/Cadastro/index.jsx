@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { ValidandoToken } from "../../../Services/ValidandoToken"
 import { FormParaAddEmpresa } from "../FormParaAddEmpresa"
 
 export const Cadastro = ({ paginaCadastro, voltarTelaInicial }) => {
@@ -10,6 +10,7 @@ export const Cadastro = ({ paginaCadastro, voltarTelaInicial }) => {
 
     return (
         <>
+            <ValidandoToken />
             <FormParaAddEmpresa paginaCadastro={paginaCadastro} voltarTelaInicial={voltarTelaInicial} />
         </>
     )

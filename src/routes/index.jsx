@@ -3,8 +3,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Home } from "../components/pages/Home";
 import { Cadastro } from "../components/pages/Cadastro";
-import axios from "axios";
 import { Login } from "../components/pages/Login";
+import { ValidandoToken } from "../Services/ValidandoToken"
 
 export const Routes = () => {
 
@@ -17,7 +17,7 @@ export const Routes = () => {
     const arrayDeEmpresas = empresas.Empresas;
 
     useEffect(() => {
-        fetch("http://localhost:3001/MV/empresasListadas")
+        fetch("http://localhost:3001/MV/clientes")
             .then((res) => res.json())
             .then((res) => {
                 setEmpresas(res);
@@ -47,13 +47,6 @@ export const Routes = () => {
         history.push("/");
     };
 
-    const urlParams = new URLSearchParams(window.location.search);
-
-    const tokenUrl = urlParams.get("token")
-
-    const tokenNoStorage = localStorage.setItem('token', tokenUrl)
-    const getStorage = localStorage.getItem('token')
-
 
 
 
@@ -66,15 +59,17 @@ export const Routes = () => {
                     mostrarItensFiltrados={mostrarItensFiltrados}
                     filter={filter}
                     paginaCadastro={paginaCadastro}
+                    ValidandoToken={ValidandoToken}
                 />
             </Route>
             <Route exact path="/cadastro">
                 <Cadastro
                     paginaCadastro={paginaCadastro}
                     voltarTelaInicial={voltarTelaInicial}
+                    ValidandoToken={ValidandoToken}
                 />
             </Route>
-            <Route exact path="/login">
+            <Route exact path="/Login">
                 <Login />
             </Route>
         </Switch>

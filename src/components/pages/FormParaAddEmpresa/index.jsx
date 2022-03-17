@@ -110,7 +110,7 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
 
     const onSubmit = async (data, event) => {
         event.preventDefault()
-        const postAPI = axios.post("http://localhost:3001/MV/empresasCriadas", data)
+        const postAPI = axios.post("http://localhost:3001/MV/clientes", data)
             .then((res) => {
                 toast.success("Cadastro efetuado!", {
                     position: "top-right",
