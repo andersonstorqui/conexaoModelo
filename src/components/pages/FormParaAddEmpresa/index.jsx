@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify"
 import { Form } from './styles';
-
+import { useParams } from "react-router-dom"
 
 
 export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
@@ -102,15 +102,15 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
         resolver: yupResolver(schema)
     })
 
+    const { id } = useParams()
 
-
-
+    console.log(useParams())
 
 
 
     const onSubmit = async (data, event) => {
         event.preventDefault()
-        const postAPI = axios.post("http://localhost:3001/MV/clientes", data)
+        const postAPI = axios.post("http://localhost:3080/MV/clientes", data)
             .then((res) => {
                 toast.success("Cadastro efetuado!", {
                     position: "top-right",
@@ -122,18 +122,18 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
                     progress: undefined,
                 })
 
-            }
-            )
+            })
+
+
+        const putApi = axios.put(`http://localhost:3080/MV/clientes/${id}`, data).then((res) => {
+            console.log(data)
+            console.log(res)
+        })
 
     }
 
 
-    // const alterandoValorApi = data => {
-    // const alterandoAlgumValor = axios.patch("http://localhost:3001/MV/empresasCriadas", data)
-    // .then((res) => {
-    // 
-    // })
-    // }
+
 
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -154,8 +154,6 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
                         <input type="text" placeholder="Ip Interno" {...register("ipInternoTS1")} />
                         <input type="text" placeholder="Ip externo" {...register("ipExternoTS1")} />
                         <input type="text" placeholder="usuário"{...register("usuarioTS1")} />
-                        {/* <input type="text" placeholder="usuário2" {...register("usuario2TS1")} />
-                    <input type="text" placeholder="usuário3"{...register("usuario3TS1")} /> */}
                         <input type="text" placeholder="senha" {...register("senhaTS1")} />
 
                     </div>
@@ -167,43 +165,6 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
                         <input type="text" placeholder="usuário" {...register("usuarioTS2")} />
                         <input type="text" placeholder="senha"{...register("senhaTS2")} />
                     </div>
-                    {/*
-                <details>
-                    <h3>TS3</h3>
-                    <input type="text" placeholder="Ip Interno"{...register("ipInternoTS3")} />
-                    <input type="text" placeholder="Ip externo" {...register("ipExternoTS3")} />
-                    <input type="text" placeholder="usuário"{...register("usuarioTS3")} />
-                    <input type="text" placeholder="senha"{...register("senhaTS3")} />
-                </details>
-                <details>
-
-                    <h3>TS4</h3>
-                    <input type="text" placeholder="Ip Interno" {...register("ipInternoTS4")} />
-                    <input type="text" placeholder="Ip externo"{...register("ipExternoTS4")} />
-                    <input type="text" placeholder="usuário" {...register("usuarioTS4")} />
-                    <input type="text" placeholder="senha" {...register("senhaTS4")} />
-
-                </details>
-                <details>
-
-                    <h3>TS5</h3>
-                    <input type="text" placeholder="Ip Interno"{...register("ipInternoTS5")} />
-                    <input type="text" placeholder="Ip externo"{...register("ipExternoTS5")} />
-                    <input type="text" placeholder="usuário" {...register("usuarioTS5")} />
-                    <input type="text" placeholder="senha"{...register("senhaTS5")} />
-
-                </details>
-
-                <details>
-                    <h3>Rede Wifi</h3>
-                    <input type="text" placeholder="Rede" {...register("rede")} />
-                    <input type="text" placeholder="Senha" {...register("senha")} />
-                    <input type="text" placeholder="Rede2" {...register("rede2")} />
-                    <input type="text" placeholder="Senha2" {...register("senha2")} />
-                    <input type="text" placeholder="Rede3" {...register("rede3")} />
-                    <input type="text" placeholder="Senha" {...register("senha3")} />
-
-                </details> */}
                     <div className='Card'>
 
 
@@ -216,13 +177,6 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
                         <input type="text" placeholder="SSID" {...register("ssidBancoProd")} />
                     </div>
 
-                    {/* <details>
-                    <h3>Banco Oracle Prod2</h3>
-                    <input type="text" placeholder="Ip"{...register("ipBancoProd2")} />
-                    <input type="text" placeholder="Usuário" {...register("usuarioBancoProd2")} />
-                    <input type="text" placeholder="Senha"{...register("senhaBancoProd2")} />
-
-                </details> */}
                     <div className='Card'>
 
                         <h3>Banco Oracle Teste</h3>
@@ -233,13 +187,6 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
                         <input type="text" placeholder="Porta" {...register("portaBancoTeste")} />
                         <input type="text" placeholder="SSID" {...register("ssidBancoTeste")} />
                     </div>
-                    {/* <details>
-
-                    <h3>Banco Oracle Teste2</h3>
-                    <input type="text" placeholder="Ip"{...register("ipBancoTeste2")} />
-                    <input type="text" placeholder="Usuário" {...register("usuarioBancoTeste2")} />
-                    <input type="text" placeholder="Senha"{...register("senhaBancoTeste2")} />
-                </details> */}
                     <div className='Card'>
 
                         <h3>Foco ERP Prod</h3>
@@ -247,14 +194,6 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
                         <input type="text" placeholder="Usuário"{...register("usuarioFocoProd")} />
                         <input type="text" placeholder="Senha"{...register("senhaFocoProd")} />
                     </div>
-                    {/* <details>
-
-                    <h3>Foco ERP Prod2</h3>
-                    <input type="text" placeholder="Ip" {...register("ipFocoProd2")} />
-                    <input type="text" placeholder="Usuário" {...register("usuarioFocoProd2")} />
-                    <input type="text" placeholder="Senha" {...register("senhaFocoProd2")} />
-
-                </details> */}
                     <div className='Card'>
 
 
@@ -263,38 +202,6 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
                         <input type="text" placeholder="Usuário" {...register("usuarioFocoTeste")} />
                         <input type="text" placeholder="Senha"{...register("senhaFocoTeste")} />
                     </div>
-                    {/* <details>
-
-                    <h3>Foco ERP Teste2</h3>
-                    <input type="text" placeholder="Ip" {...register("ipFocoTeste2")} />
-                    <input type="text" placeholder="Usuário"{...register("usuarioFocoTeste2")} />
-                    <input type="text" placeholder="Senha"{...register("senhaFocoTeste2")} />
-                </details> */}
-                    {/* <details>
-
-                        <h3>Acesso Vpn</h3>
-                        <input type="text" placeholder="Gateway"{...register("gatewayVPN")} />
-                        <input type="text" placeholder="Ip" {...register("ipVPN")} />
-                        <input type="text" placeholder="Usuário"{...register("usuarioVPN")} />
-                        <input type="text" placeholder="Senha"{...register("senhaVPN")} />
-                    </details>
-                    <details>
-
-
-                        <h3>Acesso Vpn2</h3>
-                        <input type="text" placeholder="Gateway"{...register("gatewayVPN2")} />
-                        <input type="text" placeholder="Ip"{...register("ipVPN2")} />
-                        <input type="text" placeholder="Usuário" {...register("usuarioVPN2")} />
-                        <input type="text" placeholder="Senha"{...register("senhaVPN2")} />
-
-                    </details>
-                    <details>
-                        <h3>Acesso Vpn3</h3>
-                        <input type="text" placeholder="Gateway" {...register("gatewayVPN3")} />
-                        <input type="text" placeholder="Ip"{...register("ipVPN3")} />
-                        <input type="text" placeholder="Usuário"{...register("usuarioVPN3")} />
-                        <input type="text" placeholder="Senha" {...register("senhaVPN3")} />
-                    </details> */}
                     <div className='Card'>
 
                         <div className='div__inputObservacao'>
@@ -304,7 +211,7 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
                         </div>
                     </div>
                 </div>
-                <div className='div__botoes'>
+                <div className='div__botoes'>postAPI
 
                     <button type="submit">Cadastrar</button>
                     <ToastContainer
@@ -318,8 +225,8 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
                         draggable
                         pauseOnHover
                     />
-                    <button onClick={voltarTelaInicial}>Voltar a tela inicial</button>
-                    {/* <button type='submit'>Alterar Dados</button> */}
+                    <button formAction='postAPI' onClick={voltarTelaInicial}>Voltar a tela inicial</button>
+                    <button formAction='putApi' type='submit'>Alterar Dados</button>
 
                 </div>
 

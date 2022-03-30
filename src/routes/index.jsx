@@ -5,6 +5,7 @@ import { Home } from "../components/pages/Home";
 import { Cadastro } from "../components/pages/Cadastro";
 import { Login } from "../components/pages/Login";
 import { ValidandoToken } from "../Services/ValidandoToken"
+import { Redirect } from "react-router-dom";
 
 export const Routes = () => {
 
@@ -17,7 +18,7 @@ export const Routes = () => {
     const arrayDeEmpresas = empresas.Empresas;
 
     useEffect(() => {
-        fetch("http://localhost:3001/MV/clientes")
+        fetch("http://localhost:3080/MV/clientes")
             .then((res) => res.json())
             .then((res) => {
                 setEmpresas(res);
@@ -48,6 +49,16 @@ export const Routes = () => {
     };
 
 
+    // const PrivateRoute = ({ component: Component, ...rest }) => (
+    //     <Route {...rest} render={props => (
+    //         isAuthenticated() ? (
+    //             <Component {...props} />
+    //         ) : (
+    //             <Redirect to={{ pathname: "/Login", state: { from: props.location } }} />
+    //         )
+    //     )} />
+    // )
+
 
 
     return (
@@ -62,11 +73,13 @@ export const Routes = () => {
                     ValidandoToken={ValidandoToken}
                 />
             </Route>
-            <Route exact path="/cadastro">
+            <Route exact path="/cadastro/:id">
                 <Cadastro
                     paginaCadastro={paginaCadastro}
                     voltarTelaInicial={voltarTelaInicial}
-                    ValidandoToken={ValidandoToken}
+                    empresas={empresas}
+                    setEmpresas={setEmpresas}
+                // ValidandoToken={ValidandoToken}
                 />
             </Route>
             <Route exact path="/Login">

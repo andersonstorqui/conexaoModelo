@@ -1,32 +1,31 @@
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 export const ValidandoToken = () => {
   const history = useHistory();
-  const params = useParams();
+  // const params = useParams();
 
-  fetch("http://localhost:3001/MV/validatetoken/:token")
-    .then((req, res) => {
-      return req.json();
-    })
-    .then((data) => {
-      if (data === true) {
-        const urlParams = new URLSearchParams(window.location.search);
-        //
-        const tokenUrl = urlParams.get("token");
-        //
+  axios.get("http://localhost:3080/MV/validatetoken/?token").then((data) => {
+    if (data) {
+      const urlParams = new URLSearchParams(window.location.search);
+      console.log(urlParams);
+      //
 
-        const getStorage = localStorage.getItem("token");
-        const tokenNoStorage = localStorage.setItem("token", tokenUrl);
+      const tokenUrl = urlParams.get("token");
+      //
 
-        console.log(getStorage);
+      const getStorage = localStorage.getItem("token");
+      const tokenNoStorage = localStorage.setItem("token", tokenUrl);
 
-        if (getStorage == null) {
-          console.log("não tem token");
-        } else {
-          console.log("tem token");
-        }
+      console.log(getStorage);
+
+      if (getStorage == null) {
+        console.log("não tem token");
+        history.push("/Login");
+      } else {
       }
-    });
+    }
+  });
   return <></>;
 };
