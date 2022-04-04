@@ -121,6 +121,8 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial }) => {
                     draggable: true,
                     progress: undefined,
                 })
+                console.log(data)
+                console.log(res)
 
             })
 

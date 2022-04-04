@@ -10,17 +10,12 @@ export const Cadastro = ({ paginaCadastro, voltarTelaInicial, empresas, setEmpre
     // console.log(getLocalStorage)
     const { id } = useParams()
 
-    console.log(useParams())
 
-    if (id) {
-        return (
-            <>
-                <FormParaAddEmpresa paginaCadastro={paginaCadastro} voltarTelaInicial={voltarTelaInicial} empresas={empresas} setEmpresas={setEmpresas} />
-            </>
-        )
-    } else {
-        return <Login />
-    }
+    return (
+        <>
+            <FormParaAddEmpresa paginaCadastro={paginaCadastro} voltarTelaInicial={voltarTelaInicial} empresas={empresas} setEmpresas={setEmpresas} />
+        </>
+    )
 
 
 
