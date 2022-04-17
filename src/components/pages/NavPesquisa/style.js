@@ -59,6 +59,5 @@ export const Nav = styled.nav`
     position: absolute;
     top: 35%;
     color: #000;
-    left: 68%;
-  }
+    left: 59%;  }
 `;

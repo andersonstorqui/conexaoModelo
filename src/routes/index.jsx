@@ -1,11 +1,12 @@
 import { Switch, Route } from "react-router-dom";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Home } from "../components/pages/Home";
 import { Cadastro } from "../components/pages/Cadastro";
 import { Login } from "../components/pages/Login";
 import { ValidandoToken } from "../Services/ValidandoToken"
-import { Redirect } from "react-router-dom";
+import { FormAtualizarCliente } from "../components/pages/AtualizarCliente"
+
 
 export const Routes = () => {
 
@@ -15,7 +16,6 @@ export const Routes = () => {
     const [empresas, setEmpresas] = useState([]);
     // const [token, setToken] = useState("")
 
-    const arrayDeEmpresas = empresas.Empresas;
 
     useEffect(() => {
         fetch("http://localhost:3080/MV/clientes")
@@ -26,6 +26,7 @@ export const Routes = () => {
             .catch((err) => console.log(err));
     }, []);
 
+    const arrayDeEmpresas = empresas.Empresas;
 
     const mostrarItensFiltrados = () => {
         const itemFiltrado = arrayDeEmpresas.filter((item) => {
@@ -40,13 +41,10 @@ export const Routes = () => {
 
 
 
-    const paginaCadastro = () => {
-        history.push("/cadastro");
+    const redirecionamento = router => {
+        history.push(router);
     };
 
-    const voltarTelaInicial = () => {
-        history.push("/");
-    };
 
 
     // const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -69,14 +67,14 @@ export const Routes = () => {
                     setPesquisa={setPesquisa}
                     mostrarItensFiltrados={mostrarItensFiltrados}
                     filter={filter}
-                    paginaCadastro={paginaCadastro}
+                    paginaCadastro={() => redirecionamento("/cadastro")}
                     ValidandoToken={ValidandoToken}
+                    telaDeAtualizacao={() => redirecionamento("/atualizar")}
                 />
             </Route>
-            <Route exact path="/cadastro/:id">
+            <Route exact path="/cadastro">
                 <Cadastro
-                    paginaCadastro={paginaCadastro}
-                    voltarTelaInicial={voltarTelaInicial}
+                    voltarTelaInicial={() => redirecionamento("/")}
                     empresas={empresas}
                     setEmpresas={setEmpresas}
                 // ValidandoToken={ValidandoToken}
@@ -84,6 +82,9 @@ export const Routes = () => {
             </Route>
             <Route exact path="/Login">
                 <Login />
+            </Route>
+            <Route exact path="/atualizar">
+                <FormAtualizarCliente voltarTelaInicial={() => redirecionamento("/")} />
             </Route>
         </Switch>
     )

@@ -1,7 +1,7 @@
 import { NavPesquisa } from "../NavPesquisa"
 import { ItensPesquisados } from "../ItensPesquisados"
 import { Div } from "./style"
-export const Home = ({ pesquisa, setPesquisa, mostrarItensFiltrados, filter, paginaCadastro, ValidandoToken }) => {
+export const Home = ({ pesquisa, setPesquisa, mostrarItensFiltrados, filter, paginaCadastro, ValidandoToken, telaDeAtualizacao }) => {
 
     const getLocalStorage = localStorage.getItem('token')
 
@@ -18,6 +18,7 @@ export const Home = ({ pesquisa, setPesquisa, mostrarItensFiltrados, filter, pag
                         setPesquisa={setPesquisa}
                         mostrarItensFiltrados={mostrarItensFiltrados}
                         paginaCadastro={paginaCadastro}
+                        telaDeAtualizacao={telaDeAtualizacao}
                     />
                     <main>
                         <ItensPesquisados filter={filter} />

@@ -5,7 +5,8 @@ export const NavPesquisa = ({
   pesquisa,
   setPesquisa,
   mostrarItensFiltrados,
-  paginaCadastro
+  paginaCadastro,
+  telaDeAtualizacao
 }) => {
 
 
@@ -29,6 +30,8 @@ export const NavPesquisa = ({
         </button>
       </form>
       <button className="btn__PaginaCadastro" type="submit" onClick={paginaCadastro}>Cadastro</button>
+      <button className="btn__PaginaCadastro" type="submit" onClick={telaDeAtualizacao} >Atualizar cliente</button>
+
     </Nav>
   );
 };

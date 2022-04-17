@@ -7,8 +7,7 @@ import { Form } from './styles';
 import { useParams } from "react-router-dom"
 import { Toast } from "../Toastify/Toast"
 
-
-export const FormParaAddEmpresa = ({ voltarTelaInicial, telaDeAtualizacao }) => {
+export const FormAtualizarCliente = ({ voltarTelaInicial }) => {
 
 
 
@@ -105,18 +104,19 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial, telaDeAtualizacao }) => 
 
     const { id } = useParams()
 
-    console.log(useParams())
-
-
-
     const onSubmit = async (data, event) => {
         event.preventDefault()
-        const postAPI = axios.post("http://localhost:3080/MV/clientes", data)
+        const putAPI = axios.put(`http://localhost:3080/MV/clientes/:${id}`, data)
             .then((res) => {
-                if (res.status !== errors) {
-                    <Toast />
-                }
-
+                toast.success('🦄 Wow so easy!', {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             })
     }
 
@@ -128,7 +128,7 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial, telaDeAtualizacao }) => 
             <div className='div__engloba__titleEInput'>
                 <div className='div__nav'>
                     {/* <img src="https://i.ibb.co/ngFvNn9/MV-LOGO-PRETO.png" alt="MV-LOGO-PRETO" /> */}
-                    <h1>Cadastrar Empresa</h1>
+                    <h1>Atualizar Cliente</h1>
                     <p>Nome Fantasia</p>
                     <input className='div__input' type="text" placeholder="Nome" {...register("name")} />
                     {errors.name?.message}
@@ -201,18 +201,10 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial, telaDeAtualizacao }) => 
                 </div>
                 <div className='div__botoes'>
 
-                    <button type="submit">Cadastrar</button>
-                    <ToastContainer
-                        position="top-right"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                    />
+
+
+                    <Toast >
+                    </Toast>
                     <button onClick={voltarTelaInicial}>Voltar a tela inicial</button>
                 </div>
 
