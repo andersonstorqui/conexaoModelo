@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom"
 import { Toast } from "../Toastify/Toast"
 import { useState } from 'react';
 
-export const FormAtualizarCliente = ({ voltarTelaInicial/*, empresas, setEmpresas*/ }) => {
+export const FormAtualizarCliente = ({ voltarTelaInicial, empresas, setEmpresas }) => {
 
     const [isLoading, setIsLoading ] = useState(false)
 
@@ -107,18 +107,21 @@ export const FormAtualizarCliente = ({ voltarTelaInicial/*, empresas, setEmpresa
     
     
     
-    const { id } = useParams()
 
+    
     // const clientUpdate = empresas.Empresas.find(empresa => { 
-        // console.log(empresa._nome.id === id)
-
+        // return empresa._nome.id === id
     // })
+
+
+    
+
 
     const onSubmitPut = (data, event) => {
         event.preventDefault()
-        axios.put(`http://localhost:3080/MV/clientes/:${id}`, data)
-            .then((res) => {
-                console.log(res)
+        // axios.put(`http://localhost:3080/MV/clientes/:${id}`, data)
+            // .then((res) => {
+                console.log(data)
                 
                 // if(res.status === 201){
                 //     setIsLoading(true)
@@ -128,7 +131,7 @@ export const FormAtualizarCliente = ({ voltarTelaInicial/*, empresas, setEmpresa
                 // }, 1000)
             // console.log(data)
 
-        }) 
+        // }) 
     }
 
 
