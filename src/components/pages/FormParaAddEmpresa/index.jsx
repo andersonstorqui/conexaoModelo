@@ -1,5 +1,6 @@
+import React, { useState } from 'react';
 import * as yup from 'yup';
-import { useForm, register, handleSubmit } from 'react-hook-form';
+import { useForm, register, handleSubmit, set } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify"
@@ -11,6 +12,7 @@ import { Toast } from "../Toastify/Toast"
 export const FormParaAddEmpresa = ({ voltarTelaInicial, telaDeAtualizacao }) => {
 
 
+    const [isLoading, setIsLoading] = useState(false)
 
 
     const schema = yup.object().shape({
@@ -105,20 +107,23 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial, telaDeAtualizacao }) => 
 
     const { id } = useParams()
 
-    console.log(useParams())
+    // console.log(useParams())
 
 
-
-    const onSubmit = async (data, event) => {
+    const onSubmit = (data, event) => {
         event.preventDefault()
-        const postAPI = axios.post("http://localhost:3080/MV/clientes", data)
-            .then((res) => {
-                if (res.status !== errors) {
-                    <Toast />
-                }
+        axios.post("http://localhost:3080/MV/clientes", data)
+        .then((res) => {
+            if(res.status === 201){
+                setIsLoading(true)
+            }
+            setTimeout(() => {    
+                setIsLoading(false)
+            }, 1000)
 
-            })
-    }
+                
+    })
+}
 
 
 
@@ -201,18 +206,12 @@ export const FormParaAddEmpresa = ({ voltarTelaInicial, telaDeAtualizacao }) => 
                 </div>
                 <div className='div__botoes'>
 
-                    <button type="submit">Cadastrar</button>
-                    <ToastContainer
-                        position="top-right"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                    />
+                    <button type="submit" >{
+                    isLoading ? 
+                    "Loading"
+                     :
+                     "Cadastrar"
+                     }</button>
                     <button onClick={voltarTelaInicial}>Voltar a tela inicial</button>
                 </div>
 

@@ -84,7 +84,7 @@ export const Routes = () => {
                 <Login />
             </Route>
             <Route exact path="/atualizar">
-                <FormAtualizarCliente voltarTelaInicial={() => redirecionamento("/")} />
+                <FormAtualizarCliente voltarTelaInicial={() => redirecionamento("/")} empresas={empresas} setEmpresas={setEmpresas} />
             </Route>
         </Switch>
     )

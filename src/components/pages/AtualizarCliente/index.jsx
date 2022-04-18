@@ -6,10 +6,11 @@ import { toast, ToastContainer } from "react-toastify"
 import { Form } from './styles';
 import { useParams } from "react-router-dom"
 import { Toast } from "../Toastify/Toast"
+import { useState } from 'react';
 
-export const FormAtualizarCliente = ({ voltarTelaInicial }) => {
+export const FormAtualizarCliente = ({ voltarTelaInicial/*, empresas, setEmpresas*/ }) => {
 
-
+    const [isLoading, setIsLoading ] = useState(false)
 
 
     const schema = yup.object().shape({
@@ -102,29 +103,39 @@ export const FormAtualizarCliente = ({ voltarTelaInicial }) => {
         resolver: yupResolver(schema)
     })
 
+    
+    
+    
+    
     const { id } = useParams()
 
-    const onSubmit = async (data, event) => {
+    // const clientUpdate = empresas.Empresas.find(empresa => { 
+        // console.log(empresa._nome.id === id)
+
+    // })
+
+    const onSubmitPut = (data, event) => {
         event.preventDefault()
-        const putAPI = axios.put(`http://localhost:3080/MV/clientes/:${id}`, data)
+        axios.put(`http://localhost:3080/MV/clientes/:${id}`, data)
             .then((res) => {
-                toast.success('🦄 Wow so easy!', {
-                    position: "bottom-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
-            })
+                console.log(res)
+                
+                // if(res.status === 201){
+                //     setIsLoading(true)
+                // }
+                // setTimeout(() => {    
+                //     setIsLoading(false)
+                // }, 1000)
+            // console.log(data)
+
+        }) 
     }
 
 
 
 
     return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmitPut)}>
             <div className='div__engloba__titleEInput'>
                 <div className='div__nav'>
                     {/* <img src="https://i.ibb.co/ngFvNn9/MV-LOGO-PRETO.png" alt="MV-LOGO-PRETO" /> */}
@@ -203,8 +214,7 @@ export const FormAtualizarCliente = ({ voltarTelaInicial }) => {
 
 
 
-                    <Toast >
-                    </Toast>
+                    <button>{isLoading ?  "Loading" : "Atualizar cliente"}</button>
                     <button onClick={voltarTelaInicial}>Voltar a tela inicial</button>
                 </div>
 
