@@ -1,38 +1,48 @@
-import { Nav } from "./style"
-import { BiSearchAlt } from "react-icons/bi"
+import { Nav } from "./style";
+import { useHistory } from "react-router-dom";
+
+// import { BiSearchAlt } from "react-icons/bi";
 
 export const NavPesquisa = ({
   pesquisa,
   setPesquisa,
   mostrarItensFiltrados,
-  paginaCadastro,
-  telaDeAtualizacao
+  telaDeAtualizacao,
 }) => {
+  const history = useHistory();
 
-
+  const paginaCadastro = () => {
+    history.push("/cadastro");
+  };
   return (
     <Nav>
-      <figure>
-        <a href="http://portal.modelovencedor.com.br/home">
-          <img src="https://i.ibb.co/ngFvNn9/MV-LOGO-PRETO.png" alt="MV-LOGO-PRETO" />
-        </a>
-      </figure>
       <form onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="text"
-          value={pesquisa}
-          placeholder="Pesquise por empresa"
-          onChange={(e) => setPesquisa(e.target.value)}
-        />
-        <p>{<BiSearchAlt />}</p>
-        <button type="submit" onClick={mostrarItensFiltrados}>
-          Pesquisar
+        <div>
+          <input
+            type="text"
+            value={pesquisa}
+            placeholder="Pesquise por empresa"
+            onChange={(e) => setPesquisa(e.target.value)}
+          />
+          <button
+            className="btn_form"
+            type="submit"
+            onClick={mostrarItensFiltrados}
+          >
+            Pesquisar
+          </button>
+        </div>
+        <button className="btn_form" type="submit" onClick={paginaCadastro}>
+          Adicionar
         </button>
       </form>
-      <button className="btn__PaginaCadastro" type="submit" onClick={paginaCadastro}>Cadastro</button>
-      <button className="btn__PaginaCadastro" type="submit" onClick={telaDeAtualizacao} >Atualizar cliente</button>
-
+      {/* <button
+        className="btn__PaginaCadastro"
+        type="submit"
+        onClick={telaDeAtualizacao}
+      >
+        Atualizar cliente
+      </button> */}
     </Nav>
   );
 };
-
